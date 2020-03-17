@@ -1,0 +1,649 @@
+Html {
+    font-family: "Raleway", sans-serif;
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: inherit;
+    background-color: #f0f0f0;
+    font-size: 0.875rem;
+    color: #0d3351;
+    box-sizing: border-box;
+}
+
+.content-container {
+    max-width: 71.25rem; /*1440(1674)*/
+    margin: 0 auto;
+}
+
+/*
+    HEADER SECTION
+*/
+
+.header {
+    background-image: url("../assets/img/main.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 40.5rem;
+    margin-bottom: 5.375rem;
+    padding-top: 2.125rem;
+}
+
+@media (min-width: 1671px) {
+    .header {
+        background-position: center center;
+    }
+}
+
+.header__menu {
+    display: flex;
+    min-height: 1.69rem;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.56rem;
+}
+
+.header__nav {
+    font-size: 22px;
+}
+
+.nav:hover {
+    cursor: pointer;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 31.875rem;
+}
+
+.menu__item {
+    cursor: pointer;
+}
+
+.icon {
+    display: inline-block;
+    height: 12px;
+    width: 10px;
+}
+
+.icon-rub {
+    background-image: url("../assets/icons/icon-rub.png");
+}
+
+.icon-user {
+    background-image: url("../assets/icons/icon-user.png");
+}
+
+.menu__select {
+    background-color: transparent;
+    cursor: pointer;
+    border: none
+}
+
+.menu__item:last-child {
+    margin-right: 0;
+}
+
+.contacts {
+    font-style: normal;
+}
+
+.contacts__number {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+}
+
+.contacts__text {
+    font-size: 0.625rem;
+}
+
+.header__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header__logo {
+    margin-bottom: 1rem;
+}
+
+.title {
+    font-family: 'Roboto Slab', sans-serif;
+    letter-spacing: 0.11rem;
+    font-size: 2.25rem;
+    font-weight: 400;
+    line-height: 3rem;
+    text-align: center;
+}
+
+.header__title {
+    margin-bottom: 3.56rem;
+}
+
+.title__main {
+    display: block;
+    text-transform: uppercase;
+    font-size: 6.25rem;
+    margin-top: 2.19rem;
+    letter-spacing: -0.156rem;
+}
+
+.link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.link_display_button {
+    display: inline-block;
+    color: white;
+    background-color: #33c7fd;
+    padding: 1rem 3.063rem;
+}
+
+.link_display_button:hover {
+    color: #33c7fd;
+    background-color: #fff;
+    transition-duration: 0.2s;
+}
+
+.dashed-wave {
+    background: url("../assets/img/wave-dashed.png") no-repeat;
+    margin-top: 1.07rem;
+    width: 3.7rem;
+    height: 18.7rem;
+}
+
+/*
+    CRUISES SECTION
+*/
+
+.cruises {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 3.875rem;
+}
+
+.cruises__title {
+    margin-bottom: 0.69rem;
+}
+
+.btn_display_link {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-family: "Roboto Slab", sans-serif;
+    text-align: left;
+}
+
+.cruises__btn_display_link {
+    margin-bottom: 2.625rem;
+}
+
+.cruises-list {
+    display: grid;
+    grid-gap: 1.25rem 1.875rem;
+    grid-template-areas: "best discount" "best stock";
+}
+
+.cruise {
+    position: relative;
+    background-color: #fff;
+    padding-bottom: 2.44rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cruises-list__cruise {
+    width: 34.6875rem;
+}
+
+.cruise__info {
+    display: flex;
+    flex-direction: column;
+    padding-left: 2.5rem;
+    line-height: 1.5rem;
+    min-height: 100px;
+}
+
+.cruise__img {
+    width: 100%;
+    margin-bottom: 1.875rem;
+}
+
+.cruise__title {
+    color: #00a2dd;
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 3rem;
+}
+
+.cruise__price {
+    font-family: "Roboto Slab", sans-serif;
+    line-height: 3rem;
+    margin-left: 2.5rem;
+}
+
+.cruise__price_current {
+    font-size: 1.875rem;
+    letter-spacing: 0.09rem;
+}
+
+.cruise__price_old {
+    opacity: 0.55;
+    font-size: 1.125rem;
+    text-decoration: line-through;
+    letter-spacing: 0.06rem;
+}
+
+.cruises__link_display_button {
+    margin-top: 1.56rem;
+}
+
+.cruise__tag {
+    position: absolute;
+    top: -0.44rem;
+    right: 3.56rem;
+}
+
+.tag {
+    color: #fff;
+    text-transform: uppercase;
+    display: flex;
+    white-space: pre-wrap;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1.25rem;
+    width: 3.06rem;
+    height: 6.31rem;
+}
+
+.best {
+    background-image: url("../assets/img/best-tag.png");
+    grid-area: best;
+    order: 1;
+}
+
+.discount {
+    background-image: url("../assets/img/discount-tag.png");
+    grid-area: discount;
+    order: 3;
+}
+
+.stock {
+    background-image: url("../assets/img/discount-tag.png");
+    grid-area: stock;
+    order: 2;
+}
+
+.tag_discount > .cruise__img, .tag_stock > .cruise__img {
+    height: 7.0625rem;
+}
+
+.tag_best > .cruise__img {
+    height: 27.3125rem;
+}
+
+.button {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    outline: transparent;
+}
+
+
+.cruise__button  {
+    align-self: flex-start;
+    margin: 0 0 0.5rem 0.5rem;
+}
+
+.delete-button {
+    color: #fff;
+    background-color: #fd0010;
+    border: 2px solid #fd0010;
+}
+
+.delete-button:hover {
+    color: #fd0010;
+    border: 2px solid #fd0010;
+    background-color: #fff;
+    transition: 0.2s;
+}
+
+.edit-button {
+    color: #fff;
+    background-color: #00a2dd;
+    border: 2px solid #00a2dd;
+}
+
+.edit-button:hover {
+    color: #00a2dd;
+    border: 2px solid #00a2dd;
+    background-color: #fff;
+    transition: 0.2s;
+}
+
+.form {
+    background-color: #fff;
+    width: 500px;
+    border-radius: 10px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 40px;
+}
+
+.form__head {
+    color: #33c7fd;
+}
+
+.form__body {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+.form__field  {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.form__field > input[type="text"] {
+    height: 25px;
+    width: 220px;
+}
+
+.form__footer {
+    display: flex;
+    justify-content: space-between;
+    width: 235px;
+    align-self: flex-end;
+    margin-top: 40px;
+}
+
+.send-button {
+    color: #fff;
+    background-color: #0bdd0c;
+    border: 2px solid #0bdd0c;
+}
+
+.send-button:hover {
+    color: #0bdd0c;
+    border: 2px solid #0bdd0c;
+    background-color: #fff;
+    transition: 0.2s;
+}
+
+/*
+    FOOTER
+*/
+
+.footer {
+    background-color: #fff;
+    padding: 1.81rem 0 2.69rem;
+}
+
+.footer__content {
+    display: flex;
+    align-items: flex-start;
+}
+
+.footer__nav {
+    margin-right: 14%;
+}
+
+.footer__links {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 3.69rem;
+}
+
+.social {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer__social {
+    margin-right: auto;
+}
+
+.social__header {
+    margin-bottom: 1rem;
+}
+
+.social__links {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer__social-links {
+    width: 9.375rem;
+}
+
+.social-link {
+    background-color: #0d3351;;
+    border-radius: 50%;
+    width: 1.875rem;
+    height: 1.875rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.links__link:last-child {
+    margin-right: 0;
+}
+
+.footer__contacts {
+    margin-bottom: 0.82rem;
+}
+
+/*
+    SERVICE_CLASSES
+*/
+
+.visually-hidden {
+    position: absolute;
+    clip: rect(0 0 0 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+}
+
+.display-none {
+    display: none;
+}
+
+.body-modal {
+    overflow: hidden;
+}
+
+.popup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.7);
+    top: 0;
+    height: 100vh;
+    width: 100%;
+}
+
+
+@media (max-width: 1300px) {
+    /*
+        HEADER_SECTION
+    */
+    .header {
+        background-size: cover;
+        background-position: center center;
+        height: 37.5rem;
+        margin-bottom: 3.94rem;
+    }
+
+    .header__logo {
+        width: 4.375rem;
+        height: 4.375rem;
+        margin-bottom: 0.94rem;
+    }
+
+    .title {
+        font-size: 1.625rem;
+        font-weight: 400;
+        text-align: center;
+    }
+
+    .header__title {
+        margin-bottom: 1.44rem;
+    }
+
+    .title__main {
+        font-size: 4.5rem;
+        margin-top: 0.3rem;
+    }
+
+    .header__menu {
+        margin-bottom: 5.19rem;
+    }
+
+    .content-container {
+        max-width: 45.25rem;
+    }
+
+    /*
+        CRUISES__SECTION
+    */
+    .cruises-list {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: -1.56rem;
+        justify-content: space-between;
+        width: 724px; /* TODO: удаление элементов ломает верстку без этого свойства*/
+    }
+
+    .cruises-list__cruise {
+        width: 21.5625rem;
+        margin-bottom: 1.56rem;
+    }
+
+    .cruise__img {
+        margin-bottom: 1.875rem;
+    }
+
+    .cruise__title {
+        line-height: 1.5rem;
+    }
+
+    .best {
+        order: -3;
+    }
+
+    .discount {
+        order: -1;
+    }
+
+    .stock {
+        order: -2;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .header__menu {
+        margin-bottom: 2.15rem;
+    }
+
+    .content-container {
+        width: 90%;
+    }
+
+    .menu {
+        display: none;
+    }
+
+    .title {
+        font-size: 1.25rem;
+    }
+
+    .title__main {
+        font-size: 3.125rem;
+    }
+
+    .cruises-list {
+        width: auto;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .cruise {
+        width: 100%;
+    }
+
+    .footer__content {
+        flex-direction: column;
+        align-items: center;
+        height: 8.32rem;
+        justify-content: space-between;
+    }
+
+    .footer__links {
+        display: none;
+    }
+
+    .footer__social {
+        margin: 0;
+        align-items: center;
+    }
+
+    .social__header {
+        margin-bottom: 0.56rem;
+    }
+
+    .footer__contacts {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cruise__info {
+        padding-left: 1.3rem;
+    }
+
+    .cruise__price {
+        margin-left: 1.3rem;
+    }
+
+}
+
+@media (max-width: 480px) {
+    .header__menu {
+        margin-bottom: 0;
+    }
+
+    .title__main {
+        width: 15rem;
+    }
+
+    .dashed-wave {
+        height: 14.875rem;
+        margin-top: 1.5rem;
+        background-position: 0 55%;
+    }
+
+    .cruise__info {
+        width: 14.4rem;
+    }
+}
+
+
+

@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cruise</title>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto+Slab|Roboto:300,400,500,700&display=swap&subset=cyrillic">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://use.fontawesome.com/2420bcedba.js"></script>
+</head>
+<body id="body">
+<header class="header">
+    <div class="content-container">
+        <div class="header__menu">
+
+            <nav class="header__nav nav">
+                <i class="fa fa-bars nav__icon" aria-hidden="true"></i>
+            </nav>
+
+            <ul class="menu">
+                <li class="menu__item">
+                    <div class="icon icon-user"></div>
+                    <label for="account" class="visually-hidden">Настройки</label>
+                    <select class="menu__select" name="account" id="account">
+                        <option value="">Личный кабинет</option>
+                    </select>
+                </li>
+
+                <li class="menu__item">
+                    <div class="icon icon-rub"></div>
+                    <label for="currency" class="visually-hidden">Выбрать валюту</label>
+                    <select class="menu__select" name="currency" id="currency">
+                        <option value="ruble">Рубль</option>
+                        <option value="dollar">Доллар</option>
+                    </select>
+                </li>
+
+                <li class="menu__item">
+                    <label for="lang" class="visually-hidden">Сменить язык</label>
+                    <select class="menu__select" name="lang" id="lang">
+                        <option value="russian">Ru</option>
+                        <option value="english">En</option>
+                    </select>
+                </li>
+
+                <li class="menu__item">
+                    <address class="contacts">
+                        <a aria-label="Круглосуточная поддержка 8-800-500-61-05" href="tel:88005006105"
+                           class="link contacts__number">8 800 500-61-05</a>
+                        <div class="contacts__text" aria-hidden="true">Кргулосуточная поддержка</div>
+                    </address>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="header__info">
+
+        <img class="header__logo" src="assets/img/logo.png" alt="логотип компас">
+
+        <h1 class="title header__title">Морские прогулки<br>
+            <span class="title__main">по черному морю</span>
+        </h1>
+
+        <a href="#cruises" class="link header__link link_display_button">Выбрать круиз</a>
+        <div aria-hidden="true" class="dashed-wave"></div>
+    </div>
+</header>
+
+<div class="content-container">
+    <main class="cruises" id="cruises">
+
+        <h2 class="title">Каталог круизов</h2>
+
+        <button class="cruises__btn_display_link btn_display_link">
+            Сортировать круизы по <em>цене</em> <i class="fa fa-caret-down" aria-hidden="true"></i>
+        </button>
+
+        <ul class="cruises-list" id="cruises-list">
+
+            <template id="cruiseTemplate">
+                <li class="cruise cruises-list__cruise">
+                    <picture>
+                        <source
+                            srcset=""
+                            media="(min-width:768px) and (max-width: 1300px)">
+                        <img
+                            class="cruise__img"
+                            data-component="image"
+                            data-image='{"atr": ["src","alt"]}'>
+                    </picture>
+
+                    <div
+                        class="tag cruise__tag display-none"
+                        data-tag='{"class": ["category"], "text": "value"}'
+                        data-component="tag"></div>
+                   <div class="cruise__info">
+                        <button
+                            aria-label="Подробнее"
+                            class="cruise__title btn_display_link"
+                            data-text="title">
+                            <i class="fa fa-caret-right" aria-hidden="true"></i>
+                        </button>
+
+                        <div>
+                            <b>Маршрут:</b>
+                            <span data-text="route"></span>
+                        </div>
+                        <div>
+                            <b>Продолжительность:</b>
+                            <span data-text="duration"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="cruise__price">
+                        <span
+                            class="cruise__price_current"
+                            data-text="price"></span>
+                        <span
+                            class="cruise__price_old"
+                            data-text="oldPrice"></span>
+                    </div>
+
+                    <button class="button delete-button cruise__button" id="delete-cruise">Удалить</button>
+                    <button class="button edit-button cruise__button" id="edit-cruise">Редактировать</button>
+                </li>
+            </template>
+
+            <template id="tag">
+                <div
+                    class="tag cruise__tag display-none"
+                    data-value="text"
+                    data-category="class"
+                    data-component="tag"></div>
+            </template>
+
+        </ul>
+
+        <a href="#" class="link link_display_button cruises__link_display_button">
+            Больше круизов <i class="fa fa-caret-down" aria-hidden="true"></i>
+        </a>
+        <button class="button add-button" id="add-cruise">Добавить круиз</button>
+
+        <template id="addCruiseFormTemplate">
+            <form action="#" class="form">
+                <p class="title form__head">Добавление круиза</p>
+                <div class="form__body">
+                    <label for="card-title" class="form__field">Заголовок круиза<input type="text" id="card-title"></label>
+                    <label for="card-title" class="form__field">Маршрут<input type="text" id="card-route"></label>
+                    <label for="card-title" class="form__field">Цена<input type="text" id="card-price"></label>
+
+                </div>
+                <div class="form__footer">
+                    <button class="button delete-button" id="cancel-button">Отмена</button>
+                    <button class="button send-button">Отправить</button>
+                </div>
+            </form>
+        </template>
+
+    </main>
+</div>
+<footer class="footer">
+    <div class="content-container footer__content">
+
+        <nav class="footer__nav">
+            <ul class="footer__links">
+                <li><a class="link" href="#">Вход для партнеров</a></li>
+                <li><a class="link" href="#">О компании</a></li>
+                <li><a class="link" href="#">Контакты</a></li>
+            </ul>
+        </nav>
+
+        <div class="social footer__social">
+
+            <span class="social__header">Будь на связи:</span>
+
+            <ul class="social__links footer__social-links">
+                <li class="social-link">
+                    <a href="#"><img src="assets/img/icon-vk.png" alt="vkontakte"></a>
+                </li>
+
+                <li class="social-link">
+                    <a href="#"><img src="assets/img/icon-ok.png" alt="odnoklassniki"></a>
+                </li>
+
+                <li class="social-link">
+                    <a href="#"><img src="assets/img/icon-yt.png" alt="youtube"></a>
+                </li>
+
+                <li class="social-link">
+                    <a href="#"><img src="assets/img/icon-insta.png" alt="instagram"></a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="support-info">
+
+            <address class="contacts footer__contacts" tabindex="0">
+                <div class="contacts__number">8 800 500-61-05</div>
+                <div class="contacts__text">Кргулосуточная поддержка</div>
+            </address>
+
+            <span class="copyright">&#169; 2016 ООО &#171;Городские Круизы&#187;</span>
+        </div>
+    </div>
+</footer>
+<script src="script.js" type="module"></script>
+</body>
+</html>

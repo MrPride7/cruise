@@ -22,6 +22,7 @@ async function fetchJSON(url) {
 }
 
 function renderCruiseList(dataList) {
+  console.log(dataList);
   const template = document.getElementById('cruiseTemplate');
   const cruisesList = document.getElementById('cruises-list');
 
@@ -32,6 +33,11 @@ function renderCruiseList(dataList) {
       if (!Array.from(listOfCruises).find(cruise => cruise.dataset.id === item.id)) {
           renderElem(item, template, cruisesList);
       }
+  }
+  for(let cruise of listOfCruises) {
+    if(!dataList.find(dataItem => cruise.dataset.id === dataItem.id)) {
+      cruisesList.removeChild(cruise);
+    }
   }
 }
 
@@ -97,12 +103,15 @@ function deleteCard(e) {
   if (e.target.id === 'deleteCruise') {
 
     const cruiseCard = e.target.parentElement;
-    const state = store.state;
-    const indexDataForDelete = state.cardList.findIndex(card => card.id === cruiseCard.dataset.id);
+    const cardList = store.state.cardList;
+    console.log(cardList.findIndex(card => card.id === cruiseCard.dataset.id));
+    console.log(cruiseCard.dataset.id);
+    const indexDataForDelete = cardList.findIndex(card => card.id === cruiseCard.dataset.id);
 
-    if (indexDataForDelete) {
-      state.cardList.splice(indexDataForDelete, 1);
-      cruiseCard.parentElement.removeChild(cruiseCard);
+    if (typeof indexDataForDelete !== 'undefined') {
+      cardList.splice(indexDataForDelete, 1);
+
+      renderCruiseList(cardList);
     } else {
       console.error('no data with such id')
     }

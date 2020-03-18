@@ -8,119 +8,168 @@ addFormButton.addEventListener('click', openAddForm);
 
 const store = new Store({});
 
-(async function() {
-    const state = store.state;
-    state.cardList = await fetchJSON('./cruisesData.json');
+(async function () {
+  const state = store.state;
+  state.cardList = await fetchJSON('./cruisesData.json');
 
-    renderCruiseList(state.cardList, 'cruiseTemplate');
+
+  renderCruiseList(state.cardList);
 })();
 
 async function fetchJSON(url) {
-    return fetch(url)
-        .then(response => response.json())
+  return fetch(url)
+    .then(response => response.json())
 }
 
-function renderCruiseList(dataList, templateId) {
-    const template = document.getElementById(templateId);
-    const cruisesList = document.getElementById('cruises-list');
+function renderCruiseList(dataList) {
+  const template = document.getElementById('cruiseTemplate');
+  const cruisesList = document.getElementById('cruises-list');
 
-    for (let item of dataList) {
-        renderElem(item, template, cruisesList);
-    }
+  const listOfCruises = cruisesList.querySelectorAll('li');
+
+  //Этот код отвечает за добавление новых элементов
+  for (let item of dataList) {
+      if (!Array.from(listOfCruises).find(cruise => cruise.dataset.id === item.id)) {
+          renderElem(item, template, cruisesList);
+      }
+  }
 }
 
+//Этот рендерит любой элемент, который дадут
 function renderElem(data = null, template, renderTarget) {
-    const copy = template.content.cloneNode(true);
-    const copiedElem = copy.firstElementChild;
-    copiedElem.dataset.id = data.id;
+  const copy = template.content.cloneNode(true);
+  const copiedElem = copy.firstElementChild;
+  copiedElem.dataset.id = data.id;
 
-    const complexElems = copiedElem.querySelectorAll("[data-component]");
-    const simpleElems = copiedElem.querySelectorAll("[data-text]");
+  const complexElems = copiedElem.querySelectorAll("[data-component]");
+  const simpleElems = copiedElem.querySelectorAll("[data-text]");
 
-    if(complexElems) {
-        for(let elem of complexElems) {
-            fillElemWithData(elem, data[elem.dataset.component])
-        }
+  if (complexElems) {
+    for (let elem of complexElems) {
+      fillElemWithData(elem, data[elem.dataset.component])
     }
-    if(simpleElems) {
-        for(let elem of simpleElems) {
-            fillTextContent(elem, data[elem.dataset.text]);
-        }
+  }
+  if (simpleElems) {
+    for (let elem of simpleElems) {
+      fillTextContent(elem, data[elem.dataset.text]);
     }
-    renderTarget.append(copiedElem);
+  }
+  renderTarget.append(copiedElem);
 }
 
 function fillElemWithData(elem, data) {
-    let dataTypes = {};
-    dataTypes = JSON.parse(elem.dataset[elem.dataset.component]);
+  let dataTypes = {};
+  dataTypes = JSON.parse(elem.dataset[elem.dataset.component]);
 
-    for(let dataItem in data) {
-        for(let dataType in dataTypes) {
+  for (let dataItem in data) {
+    for (let dataType in dataTypes) {
 
-            if(dataType === 'atr') {
-                for(let atr of dataTypes[dataType]) {
-                    elem.setAttribute(atr, data[atr]);
-                }
-            }
-            if(dataType === 'class') {
-                elem.classList.remove('display-none');
-
-                for(let clas of dataTypes[dataType]) {
-                    elem.classList.add(data[clas]);
-                }
-            }
-            if(dataType === 'text') {
-                fillTextContent(elem, data[dataTypes[dataType]])
-            }
+      if (dataType === 'atr') {
+        for (let atr of dataTypes[dataType]) {
+          elem.setAttribute(atr, data[atr]);
         }
+      }
+      if (dataType === 'class') {
+        elem.classList.remove('display-none');
+
+        for (let clas of dataTypes[dataType]) {
+          elem.classList.add(data[clas]);
+        }
+      }
+      if (dataType === 'text') {
+        fillTextContent(elem, data[dataTypes[dataType]])
+      }
     }
+  }
 }
 
 function fillTextContent(elem, text) {
-    elem.textContent = text
+  elem.textContent = text
 }
 
-async function editCard(e) {
-    console.log('edit');
-};
+function editCard(e) {
+  console.log('edit');
+}
 
-async function deleteCard(e) {
+function deleteCard(e) {
 
-    e.stopPropagation();
-    if(e.target.id === 'deleteCruise') {
+  e.stopPropagation();
+  if (e.target.id === 'deleteCruise') {
 
-        const cruiseCard = e.target.parentElement;
-        const state = store.state;
-        const indexDataForDelete = state.cardList.findIndex(card => card.id === cruiseCard.dataset.id);
+    const cruiseCard = e.target.parentElement;
+    const state = store.state;
+    const indexDataForDelete = state.cardList.findIndex(card => card.id === cruiseCard.dataset.id);
 
-        if(indexDataForDelete) {
-            state.cardList.splice(indexDataForDelete, 1);
-            cruiseCard.parentElement.removeChild(cruiseCard);
-        } else {
-            console.error('no data with such id')
-        }
+    if (indexDataForDelete) {
+      state.cardList.splice(indexDataForDelete, 1);
+      cruiseCard.parentElement.removeChild(cruiseCard);
     } else {
-        return;
+      console.error('no data with such id')
     }
+  } else {
+    return;
+  }
 }
 
-async function openAddForm() {
-    const body = document.getElementById('body');
-    const popup = document.createElement('div');
-    body.classList.add('body-modal');
-    popup.classList.add('popup');
-    popup.setAttribute('id', 'popup');
-    body.append(popup);
-    popup.addEventListener('click', (e) => {
-        if(e.target.id === 'popup' || e.target.id === 'cancel-button') {
-            body.classList.remove('body-modal');
-            body.removeChild(popup);
-        }
-    });
-    const addCruiseFormTemplate = document.getElementById('addCruiseFormTemplate');
-    const form = addCruiseFormTemplate.content.cloneNode(true);
-    popup.append(form);
+function openAddForm() {
+  const body = document.getElementById('body');
+  const popup = document.createElement('div');
+  body.classList.add('body-modal');
+  popup.classList.add('popup');
+  popup.setAttribute('id', 'popup');
+  body.append(popup);
+  popup.addEventListener('click', (e) => {
+    if (e.target.id === 'popup' || e.target.id === 'cancel-button' || e.target.id === 'add-button') {
+      body.classList.remove('body-modal');
+      body.removeChild(popup);
+    }
+  });
+  const addCruiseFormTemplate = document.getElementById('addCruiseFormTemplate');
+  const form = addCruiseFormTemplate.content.cloneNode(true);
+  const addButton = form.getElementById('add-button');
+  addButton.addEventListener('click', addCard);
+  popup.append(form);
 }
+
+function addCard(e) {
+  let obj = {
+    id: "1",
+    image: {
+      src: "assets/img/tablet/anapa-m.jpg",
+      alt: "Морской круиз в Анапу"
+    },
+    title: "Морской круиз в Анапу",
+    route: "Сочи-Лазаревское-Геленджик-Анапа",
+    duration: "10 ч. 0 мин.",
+    price: "49 000 руб.",
+    tag: {
+      value: "Хит",
+      category: "best"
+    }
+  };
+
+
+  e.preventDefault();
+  const cardList = store.state.cardList;
+
+  let idForSet = 0;
+
+  for (let card of cardList) {
+    if (Number(card.id) > Number(idForSet)) {
+      idForSet = card.id;
+    }
+    if (cardList.indexOf(card) === cardList.length - 1) {
+      idForSet++;
+      idForSet = String(idForSet);
+    }
+  }
+  obj.id = idForSet;
+  cardList.push(obj);
+  renderCruiseList(cardList);
+}
+
+
+
 
 
 

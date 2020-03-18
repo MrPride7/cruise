@@ -15,7 +15,7 @@
     }
   },
   {
-    "id": "2",
+    "id": "43",
     "image": {
       "src": "assets/img/tablet/boat-trip-m.jpg",
       "alt": "Обзорная морская прогулка с экскурсией"
@@ -31,7 +31,7 @@
     }
   },
   {
-    "id": "3",
+    "id": "78",
     "image": {
       "src": "assets/img/tablet/gelendzhik-m.jpg",
       "alt": "Морская прогулка в Геледжик"
@@ -58,7 +58,7 @@
     "price": "14 800 руб."
   },
   {
-    "id": "5",
+    "id": "3",
     "image": {
       "src": "assets/img/tablet/novorosiysk-m.jpg",
       "alt": "Морской круиз в Новороссийск 2"

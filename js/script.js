@@ -104,8 +104,6 @@ function deleteCard(e) {
 
     const cruiseCard = e.target.parentElement;
     const cardList = store.state.cardList;
-    console.log(cardList.findIndex(card => card.id === cruiseCard.dataset.id));
-    console.log(cruiseCard.dataset.id);
     const indexDataForDelete = cardList.findIndex(card => card.id === cruiseCard.dataset.id);
 
     if (typeof indexDataForDelete !== 'undefined') {

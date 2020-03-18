@@ -1,58 +1,72 @@
-(async function() {
-    renderCruiseList(await fetchJSON('./cruisesData.json'), 'cruiseTemplate');
-})();
+import {Store} from "./store.js"
 
 const list = document.getElementById('cruises-list');
 list.addEventListener('click', deleteCard);
 list.addEventListener('click', editCard);
-const addCruise = document.getElementById('add-cruise');
-addCruise.addEventListener('click', addCard);
+const addFormButton = document.getElementById('addFormButton');
+addFormButton.addEventListener('click', openAddForm);
+
+const store = new Store({});
+
+(async function() {
+    const state = store.state;
+    state.cardList = await fetchJSON('./cruisesData.json');
+
+    renderCruiseList(state.cardList, 'cruiseTemplate');
+})();
 
 async function fetchJSON(url) {
     return fetch(url)
         .then(response => response.json())
 }
 
-function renderCruiseList(dataArr, templateId) {
+function renderCruiseList(dataList, templateId) {
     const template = document.getElementById(templateId);
     const cruisesList = document.getElementById('cruises-list');
 
-    for (let item of dataArr) {
-        const elemForRender = renderElem(item, template);
-        cruisesList.appendChild(elemForRender);
+    for (let item of dataList) {
+        renderElem(item, template, cruisesList);
     }
 }
 
-function renderElem(dataItem = null, template) {
+function renderElem(data = null, template, renderTarget) {
     const copy = template.content.cloneNode(true);
-    let complexElems = copy.querySelectorAll("[data-component]");
-    let simpleElems = copy.querySelectorAll("[data-text]");
+    const copiedElem = copy.firstElementChild;
+    copiedElem.dataset.id = data.id;
+
+    const complexElems = copiedElem.querySelectorAll("[data-component]");
+    const simpleElems = copiedElem.querySelectorAll("[data-text]");
+
     if(complexElems) {
         for(let elem of complexElems) {
-            fillElemWithData(elem, dataItem[elem.dataset.component])
+            fillElemWithData(elem, data[elem.dataset.component])
         }
     }
     if(simpleElems) {
         for(let elem of simpleElems) {
-            fillTextContent(elem, dataItem[elem.dataset.text]);
+            fillTextContent(elem, data[elem.dataset.text]);
         }
     }
-    return copy;
+    renderTarget.append(copiedElem);
 }
 
 function fillElemWithData(elem, data) {
     let dataTypes = {};
     dataTypes = JSON.parse(elem.dataset[elem.dataset.component]);
+
     for(let dataItem in data) {
         for(let dataType in dataTypes) {
 
             if(dataType === 'atr') {
-                elem.setAttribute(dataItem, data[dataItem]);
+                for(let atr of dataTypes[dataType]) {
+                    elem.setAttribute(atr, data[atr]);
+                }
             }
             if(dataType === 'class') {
                 elem.classList.remove('display-none');
+
                 for(let clas of dataTypes[dataType]) {
-                    elem.classList.add(data[dataTypes[dataType]]);
+                    elem.classList.add(data[clas]);
                 }
             }
             if(dataType === 'text') {
@@ -60,7 +74,6 @@ function fillElemWithData(elem, data) {
             }
         }
     }
-
 }
 
 function fillTextContent(elem, text) {
@@ -68,37 +81,30 @@ function fillTextContent(elem, text) {
 }
 
 async function editCard(e) {
-    const cruiseCard = getCard(e);
+    console.log('edit');
 };
 
 async function deleteCard(e) {
 
     e.stopPropagation();
+    if(e.target.id === 'deleteCruise') {
 
-    const cruiseCard = getCard(e);
-    const data = await fetchJSON('./cruisesData.json');
+        const cruiseCard = e.target.parentElement;
+        const state = store.state;
+        const indexDataForDelete = state.cardList.findIndex(card => card.id === cruiseCard.dataset.id);
 
-    if(cruiseCard) {
-        const requiredData = getRequiredData(cruiseCard);
-        data.splice(data.indexOf(requiredData), 1);
-        cruiseCard.parentElement.removeChild(cruiseCard);
-    }
-}
-
-function getCard(e) {
-    if(e.target.id !== 'delete-cruise') {
+        if(indexDataForDelete) {
+            state.cardList.splice(indexDataForDelete, 1);
+            cruiseCard.parentElement.removeChild(cruiseCard);
+        } else {
+            console.error('no data with such id')
+        }
+    } else {
         return;
     }
-    return e.target.parentElement;
 }
 
-async function getRequiredData(elemForUpdate) {
-    const title = elemForUpdate.querySelector('.cruise__title').textContent;
-    const data = await fetchJSON('./cruisesData.json');
-    return data.find(item => item.title === title);
-}
-
-async function addCard() {
+async function openAddForm() {
     const body = document.getElementById('body');
     const popup = document.createElement('div');
     body.classList.add('body-modal');
@@ -114,16 +120,9 @@ async function addCard() {
     const addCruiseFormTemplate = document.getElementById('addCruiseFormTemplate');
     const form = addCruiseFormTemplate.content.cloneNode(true);
     popup.append(form);
-    const cruiseTemplate = document.getElementById('cruiseTemplate');
-
-    let dataForSend = {
-
-    }
-    const data = await fetchJSON('./cruisesData.json');
-    /*const elemForRender = renderElem(item, cruiseTemplate);
-
-    cruisesList.appendChild(elemForRender);*/
 }
+
+
 
 
 

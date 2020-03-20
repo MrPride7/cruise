@@ -79,85 +79,93 @@
         <button class="cruises__btn_display_link btn_display_link">
             Сортировать круизы по <em>цене</em> <i class="fa fa-caret-down" aria-hidden="true"></i>
         </button>
+        <template id="app-component">
+            <!--<ul
+                    class="cruises-list"
+                    id="cruises-list"
+                    data-for='{"component": "CruiseComponent", "collection": "cruises"}'>
+            </ul>-->
+        </template>
+        <ul
+                class="cruises-list"
+                id="cruises-list"
+                data-for='{"component": "CruiseComponent", "collection": "cruises"}'>
+        </ul>
 
-        <ul class="cruises-list" id="cruises-list">
-
-            <template id="cruiseTemplate">
-                <li class="cruise cruises-list__cruise">
-                    <picture>
-                        <source
+        <template id="cruise-component">
+            <li class="cruise cruises-list__cruise">
+                <picture>
+                    <source
                             srcset=""
                             media="(min-width:768px) and (max-width: 1300px)">
-                        <img
+                    <img
                             class="cruise__img"
-                            data-component="image"
-                            data-image='{"atr": ["src","alt"]}'>
-                    </picture>
+                            data-atr='{"src": "image", "alt": "title"}'>
+                </picture>
 
-                    <div
+                <div
                         class="tag cruise__tag display-none"
-                        data-tag='{"class": ["category"], "text": "value"}'
-                        data-component="tag"></div>
-                   <div class="cruise__info">
-                        <button
+                        data-class='{"category": "best"}'
+                        data-text="value"></div>
+                <div class="cruise__info">
+                    <button
                             aria-label="Подробнее"
                             class="cruise__title btn_display_link"
                             data-text="title">
-                            <i class="fa fa-caret-right" aria-hidden="true"></i>
-                        </button>
+                        <i class="fa fa-caret-right" aria-hidden="true"></i>
+                    </button>
 
-                        <div>
-                            <b>Маршрут:</b>
-                            <span data-text="route"></span>
-                        </div>
-                        <div>
-                            <b>Продолжительность:</b>
-                            <span data-text="duration"></span>
-                        </div>
-
+                    <div>
+                        <b>Маршрут:</b>
+                        <span data-text="route"></span>
+                    </div>
+                    <div>
+                        <b>Продолжительность:</b>
+                        <span data-text="duration"></span>
                     </div>
 
-                    <div class="cruise__price">
+                </div>
+
+                <div class="cruise__price">
                         <span
-                            class="cruise__price_current"
-                            data-text="price"></span>
-                        <span
+                                class="cruise__price_current"
+                                data-text="price"></span>
+                    <span
                             class="cruise__price_old"
                             data-text="oldPrice"></span>
-                    </div>
+                </div>
 
-                    <button class="button delete-button cruise__button" id="deleteCruise">Удалить</button>
-                    <button class="button edit-button cruise__button" id="editCruise">Редактировать</button>
-                </li>
-            </template>
+                <button class="button delete-button cruise__button" id="delete-cruise">Удалить</button>
+                <button class="button edit-button cruise__button" id="edit-cruise">Редактировать</button>
+            </li>
+        </template>
 
-            <template id="tag">
-                <div
+        <template id="tag">
+            <div
                     class="tag cruise__tag display-none"
-                    data-value="text"
-                    data-category="class"
+                    data-text="value"
+                    data-class="category"
                     data-component="tag"></div>
-            </template>
-
-        </ul>
+        </template>
 
         <a href="#" class="link link_display_button cruises__link_display_button">
             Больше круизов <i class="fa fa-caret-down" aria-hidden="true"></i>
         </a>
-        <button class="button add-button" id="addFormButton">Добавить круиз</button>
+        <button class="button add-button" id="add-cruise">Добавить круиз</button>
 
         <template id="addCruiseFormTemplate">
             <form action="#" class="form">
                 <p class="title form__head">Добавление круиза</p>
                 <div class="form__body">
-                    <label for="card-title" class="form__field">Заголовок круиза<input type="text" id="card-title"></label>
+                    <label for="card-title" class="form__field">Заголовок круиза<input type="text"
+                                                                                       id="card-title"></label>
                     <label for="card-title" class="form__field">Маршрут<input type="text" id="card-route"></label>
                     <label for="card-title" class="form__field">Цена<input type="text" id="card-price"></label>
 
                 </div>
                 <div class="form__footer">
                     <button class="button delete-button" id="cancel-button">Отмена</button>
-                    <button class="button send-button" id="add-button">Отправить</button>
+                    <button class="button send-button">Отправить</button>
                 </div>
             </form>
         </template>
@@ -209,6 +217,6 @@
         </div>
     </div>
 </footer>
-<script src="js/script.js" type="module"></script>
+<script src="main.js" type="module"></script>
 </body>
 </html>
